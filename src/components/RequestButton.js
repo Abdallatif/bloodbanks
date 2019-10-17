@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { makeStyles, createStyles, Button, Popover, Typography, Modal } from '@material-ui/core';
+import { makeStyles, createStyles, Button, Popover, Typography, Modal, TextField } from '@material-ui/core';
 import { formatDate } from '../utils';
 
 const useStyles = makeStyles((theme) =>
@@ -14,11 +14,15 @@ const useStyles = makeStyles((theme) =>
             border: '2px solid #000',
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
+        },
+        textField: {
+            display: "block",
+            margin: 10,
         }
     }),
 );
 
-export default function ShowDetailsButton({ item }) {
+export default function RequestButton({ item }) {
     const { city, hospital, bloodType, quantity, expire } = item;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const classes = useStyles();
@@ -37,17 +41,16 @@ export default function ShowDetailsButton({ item }) {
     return (
         <div>
         <Button aria-describedby={id} onClick={handleClick}>
-            Show Details
+            Request
         </Button>
         <Modal
             open={open}
             onClose={handleClose}
         >
             <div className={classes.popover}>
-                <Typography variant="h5">{city} / {hospital}</Typography>
-                <Typography >Blood Type: {bloodType}</Typography>
-                <Typography >Available Quantity: {quantity}</Typography>
-                <Typography >Expires: {formatDate(expire)}</Typography>
+                <Typography >Request {bloodType} from {hospital}</Typography>
+                <TextField className={classes.textField} type="number" placeholder="Amount To Request" />
+                <Button variant="contained" onClick={handleClose}>Request</Button>
             </div>
         </Modal>
         </div>

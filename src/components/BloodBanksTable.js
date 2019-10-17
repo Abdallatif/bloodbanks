@@ -11,6 +11,7 @@ import useTableDataController from '../hooks/useTableController';
 import TableHeadCell from './TableHeadCell';
 import ShowDetailsButton from './ShowDetailsButton';
 import { formatDate } from '../utils';
+import RequestButton from './RequestButton';
 
 const stringCompare = (getter) => (a, b) => getter(a).localeCompare(getter(b), undefined, { sensitivity: "base" }   );
 const numberCompare = (getter) => (a, b) => getter(a) - getter(b);
@@ -114,7 +115,7 @@ export default function BloodBanksTable({ rows }) {
                             <TableCell>{row.quantity}</TableCell>
                             <TableCell>{formatDate(row.expire)}</TableCell>
                             <TableCell><ShowDetailsButton item={row} /></TableCell>
-                            <TableCell><Button >Request</Button></TableCell>
+                            <TableCell><RequestButton item={row} /></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
