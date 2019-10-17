@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) =>
         textField: {
             display: "block",
             margin: 10,
+        },
+        input: {
+            width: 200,
         }
     }),
 );
@@ -34,6 +37,11 @@ export default function RequestButton({ item }) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleClose();
+    }
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
@@ -47,11 +55,11 @@ export default function RequestButton({ item }) {
             open={open}
             onClose={handleClose}
         >
-            <div className={classes.popover}>
+            <form className={classes.popover} onSubmit={handleSubmit}>
                 <Typography >Request {bloodType} from {hospital}</Typography>
-                <TextField className={classes.textField} type="number" placeholder="Amount To Request" />
-                <Button variant="contained" onClick={handleClose}>Request</Button>
-            </div>
+                <TextField className={classes.textField} type="number" placeholder="Amount To Request"  inputProps={{min: 1, max: item.quantity, required: true, className: classes.input}} />
+                <Button variant="contained" type="submit" >Request</Button>
+            </form>
         </Modal>
         </div>
     );
