@@ -9,9 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import { Button, TablePagination } from '@material-ui/core';
 import useTableDataController from '../hooks/useTableController';
 import TableHeadCell from './TableHeadCell';
-import { format } from 'date-fns/esm';
-
-const formatDate = (date) => format(date, "dd/mm/yyyy hh:mma")
+import ShowDetailsButton from './ShowDetailsButton';
+import { formatDate } from '../utils';
 
 const stringCompare = (getter) => (a, b) => getter(a).localeCompare(getter(b), undefined, { sensitivity: "base" }   );
 const numberCompare = (getter) => (a, b) => getter(a) - getter(b);
@@ -114,8 +113,8 @@ export default function BloodBanksTable({ rows }) {
                             <TableCell>{row.bloodType}</TableCell>
                             <TableCell>{row.quantity}</TableCell>
                             <TableCell>{formatDate(row.expire)}</TableCell>
-                            <TableCell><Button onClick={() => window.alert("show details")}>Show Details</Button></TableCell>
-                            <TableCell><Button onClick={() => window.alert("request")}>Request</Button></TableCell>
+                            <TableCell><ShowDetailsButton item={row} /></TableCell>
+                            <TableCell><Button >Request</Button></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
