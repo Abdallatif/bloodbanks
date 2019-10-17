@@ -9,13 +9,9 @@ import Paper from '@material-ui/core/Paper';
 import { Button, TablePagination } from '@material-ui/core';
 import useTableDataController from '../hooks/useTableController';
 import TableHeadCell from './TableHeadCell';
+import { format } from 'date-fns/esm';
 
-const formatDate = (date) => {
-    var day = date.getDate();
-    var month = date.getMonth();
-    var year = date.getFullYear();
-    return day + '/' + month + '/' + year;
-}
+const formatDate = (date) => format(date, "dd/mm/yyyy hh:mma")
 
 const stringCompare = (getter) => (a, b) => getter(a).localeCompare(getter(b), undefined, { sensitivity: "base" }   );
 const numberCompare = (getter) => (a, b) => getter(a) - getter(b);
@@ -25,7 +21,7 @@ const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
             overflowX: 'auto',
-            width: 1200,
+            width: 1300,
             margin: theme.spacing(3),
         },
         table: {
